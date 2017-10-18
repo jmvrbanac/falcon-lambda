@@ -1,4 +1,5 @@
 -r test-requirements.txt
+-e .[swagger]
 
 twine
 bumpversion

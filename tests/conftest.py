@@ -1,6 +1,12 @@
 import falcon
 import pytest
 
+from falcon_lambda.validators import swagger
+from tests import data
+
+swagger.load(str(data.get_path('sample-swagger.yml')))
+spec = swagger.get()
+
 
 class QuoteResource(object):
     def on_get(self, req, resp):
@@ -14,6 +20,7 @@ class QuoteResource(object):
 
         resp.media = quote
 
+    @swagger.validate('/quote', 'post', spec)
     def on_post(self, req, resp):
         resp.media = req.media
 

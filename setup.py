@@ -27,6 +27,9 @@ setup(
     install_requires=[
         'falcon>=1.3.0'
     ],
+    extras_require={
+        'swagger': ['prance>=0.7.0', 'jsonschema>=2.6.0'],
+    },
     package_data={},
     data_files=[],
     entry_points={

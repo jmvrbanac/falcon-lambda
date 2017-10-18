@@ -1,0 +1,35 @@
+swagger: "2.0"
+info:
+  version: "v1"
+  title: "falcon-lambda"
+  description: "Hello testing world!"
+basePath: "/v1"
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /quote:
+    post:
+      summary: "Echos back your input message"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Quote Object"
+          required: true
+          schema:
+            $ref: "#/definitions/Quote"
+      responses:
+        "201":
+          description: "Created"
+
+definitions:
+  Quote:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
