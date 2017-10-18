@@ -1,0 +1,4 @@
+[run]
+branch = True
+source = falcon_lambda
+omit = tests/*
