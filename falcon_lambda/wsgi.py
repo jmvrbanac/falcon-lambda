@@ -42,7 +42,7 @@ class Response(object):
 
 
 def environ(event, context):
-    body = event.get('body', '').encode('utf-8')
+    body = (event.get('body') or '').encode('utf-8')
     headers = {
         key.upper().replace('-', '_'): val
         for key, val in event.get('headers', {}).items()
