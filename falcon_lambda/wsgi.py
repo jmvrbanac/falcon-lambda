@@ -30,7 +30,7 @@ class Response(object):
         body = ''.join(
             map(
                 lambda s: s.decode('utf-8'),
-                [self.body.getvalue()] + wsgi_resp
+                [self.body.getvalue()] + list(wsgi_resp)
             )
         )
 
