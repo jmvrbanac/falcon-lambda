@@ -20,8 +20,16 @@ def get_default_region():
     return cache.get('default_region')
 
 
-def build_arn(service, name, account=None, region=None):
+def build_arn(service, name, account=None, region=None, type=None):
     region = region or get_default_region()
     account = account or get_account_id()
 
-    return f'arn:aws:{service}:{region}:{account}:{name}'
+    if service == 'iam':
+        return f'arn:aws:{service}::{account}:{type}/{name}'
+
+    elif service == 'lambda':
+        type = type or 'function'
+        return f'arn:aws:{service}:{region}:{account}:{type}:{name}'
+
+    else:
+        return f'arn:aws:{service}:{region}:{account}:{name}'
