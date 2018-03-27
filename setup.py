@@ -29,6 +29,7 @@ setup(
     ],
     extras_require={
         'swagger': ['prance>=0.7.0', 'jsonschema>=2.6.0'],
+        'aws': ['boto3>=1.4.7'],
     },
     package_data={},
     data_files=[],

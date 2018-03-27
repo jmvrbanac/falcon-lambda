@@ -1,5 +1,5 @@
 -r test-requirements.txt
--e .[swagger]
+-e .[swagger,aws]
 
 twine
 bumpversion
