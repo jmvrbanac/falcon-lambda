@@ -8,7 +8,7 @@ with open('README.rst') as f:
 
 setup(
     name='falcon-lambda',
-    version='0.1.6',
+    version='0.1.7',
     description=('Falcon web framework extensions for building AWS Lambda Apps'),
     long_description=desc,
     url='https://github.com/jmvrbanac/falcon-lambda',
