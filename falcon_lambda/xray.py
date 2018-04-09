@@ -5,13 +5,16 @@ from aws_xray_sdk.core import patch_all, xray_recorder
 from aws_xray_sdk.core.models import http
 from aws_xray_sdk.core.lambda_launcher import check_in_lambda
 
+from botocore import client
+from botocore.vendored.requests import sessions
+
 import falcon
 
 log = logging.getLogger(__name__)
 
 
 class Manager(object):
-    def __init__(self):
+    def __init__(self, patch_all=True):
         self._recorder = xray_recorder
         self._in_lambda = check_in_lambda()
         self._segment = None
@@ -21,7 +24,8 @@ class Manager(object):
         if not self.in_lambda:
             self.begin_segment('request')
 
-        patch_all()
+        if patch_all:
+            patch_all()
 
     def current_subsegment(self):
         return self._recorder.current_subsegment()
@@ -86,6 +90,11 @@ def error_handler(ex, req, resp, params):
     subsegment.add_exception(ex, stack)
 
     raise falcon.HTTPInternalServerError()
+
+
+def disable_xray_in_boto()
+    sessions._xray_enabled = False
+    client._xray_enabled = False
 
 
 manager = Manager()
