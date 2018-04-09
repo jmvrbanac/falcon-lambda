@@ -14,7 +14,7 @@ log = logging.getLogger(__name__)
 
 
 class Manager(object):
-    def __init__(self, patch_all=True):
+    def __init__(self, patch=True):
         self._recorder = xray_recorder
         self._in_lambda = check_in_lambda()
         self._segment = None
@@ -24,7 +24,7 @@ class Manager(object):
         if not self.in_lambda:
             self.begin_segment('request')
 
-        if patch_all:
+        if patch:
             patch_all()
 
     def current_subsegment(self):
@@ -92,7 +92,7 @@ def error_handler(ex, req, resp, params):
     raise falcon.HTTPInternalServerError()
 
 
-def disable_xray_in_boto()
+def disable_xray_in_boto():
     sessions._xray_enabled = False
     client._xray_enabled = False
 
