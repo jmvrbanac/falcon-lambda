@@ -12,6 +12,8 @@ import falcon
 
 log = logging.getLogger(__name__)
 
+manager = None
+
 
 class Manager(object):
     def __init__(self, patch=True):
@@ -47,6 +49,14 @@ class Manager(object):
     def in_lambda(self):
         return self._in_lambda
 
+    @classmethod
+    def setup(cls, *args, **kwargs):
+        # Eww...
+        global manager
+        if not manager:
+            manager = cls(*args, **kwargs)
+
+        return manager
 
 class Middleware(object):
     def process_request(self, req, resp):
@@ -92,9 +102,8 @@ def error_handler(ex, req, resp, params):
     raise falcon.HTTPInternalServerError()
 
 
-def disable_xray_in_boto():
+def disable_xray_in_boto(patch=False):
+    Manager.setup(patch=patch)
+
     sessions._xray_enabled = False
     client._xray_enabled = False
-
-
-manager = Manager()
