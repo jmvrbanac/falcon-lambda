@@ -6,13 +6,17 @@ _swagger_spec = None
 
 
 def load(path):
-    global _swagger_spec
-    _swagger_spec = prance.ResolvingParser(path).specification
-
-    return _swagger_spec
+    spec = prance.ResolvingParser(path).specification
+    return apply(spec)
 
 
 def get():
+    return _swagger_spec
+
+
+def apply(spec):
+    global _swagger_spec
+    _swagger_spec = spec
     return _swagger_spec
 
 
